@@ -907,7 +907,7 @@
 			if ([self _isValidDelegateForSelector:@selector(userListsReceived:forRequest:)])
 				[_delegate userListsReceived: parsedObjects forRequest:identifier];
 			break;			
-		case MGTwitterOAuthTokenRequest:
+		case MGTwitterOAuthToken:
 			if ([self _isValidDelegateForSelector:@selector(accessTokenReceived:forRequest:)] && [parsedObjects count] > 0)
 				[_delegate accessTokenReceived:parsedObjects[0]
 									forRequest:identifier];
