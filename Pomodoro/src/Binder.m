@@ -50,8 +50,8 @@
 + (NSString*) substitute: (NSString*)original withVariables:(NSArray*)variables andValues:(NSArray*)values {
 	
 	for (int i=0; i<[variables count]; i++) {
-		NSString* target = [variables objectAtIndex:i];
-		NSString* value = [values objectAtIndex:i];
+		NSString* target = variables[i];
+		NSString* value = values[i];
 		original = [original stringByReplacingOccurrencesOfString:target withString:value];
 	}
 	return original;

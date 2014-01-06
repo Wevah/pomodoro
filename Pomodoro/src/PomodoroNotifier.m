@@ -66,11 +66,11 @@
 }
 
 - (void) oncePerSecond:(NSInteger) time {
-    [[NSNotificationCenter defaultCenter] postNotificationName:_PMPomoOncePerSecond object:[NSNumber numberWithLong:time]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:_PMPomoOncePerSecond object:@(time)];
 }
 
 - (void) oncePerSecondBreak:(NSInteger) time {
-    [[NSNotificationCenter defaultCenter] postNotificationName:_PMPomoOncePerSecondBreak object: [NSNumber numberWithLong:time]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:_PMPomoOncePerSecondBreak object: @(time)];
 }
 
 @end

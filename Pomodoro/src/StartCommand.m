@@ -33,8 +33,8 @@
     
 	NSDictionary * args = [self evaluatedArguments];
     NSString* name = [self directParameter];
-    int duration = [[args objectForKey:@"duration"] intValue];
-    int breakDuration = [[args objectForKey:@"break"] intValue];
+    int duration = [args[@"duration"] intValue];
+    int breakDuration = [args[@"break"] intValue];
     
     PomodoroController* pomoController = (PomodoroController*)[[NSApplication sharedApplication] delegate];
     Pomodoro* pomo = pomoController.pomodoro;
@@ -44,11 +44,11 @@
     }
     
     if (0 != breakDuration) {
-        [[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:breakDuration] forKey:@"breakTime"];
+        [[NSUserDefaults standardUserDefaults] setObject: @(breakDuration) forKey:@"breakTime"];
     }
         
     if (0 != duration) {
-        [[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:duration] forKey:@"initialTime"];
+        [[NSUserDefaults standardUserDefaults] setObject: @(duration) forKey:@"initialTime"];
         [pomo setDurationMinutes:duration];
         [pomoController showTimeOnStatusBar:duration*60];
     }

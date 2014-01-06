@@ -48,8 +48,8 @@
 	[key setTarget: self];
 	[key setAction: method];
 	[[PTHotKeyCenter sharedCenter] registerHotKey: key];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithShort:[recorder keyCombo].code] forKey:[NSString stringWithFormat:@"%@%@", name, @"Code"]];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithUnsignedInteger:[recorder keyCombo].flags] forKey:[NSString stringWithFormat:@"%@%@", name, @"Flags"]];
+	[[NSUserDefaults standardUserDefaults] setObject:@([recorder keyCombo].code) forKey:[NSString stringWithFormat:@"%@%@", name, @"Code"]];
+	[[NSUserDefaults standardUserDefaults] setObject: @([recorder keyCombo].flags) forKey:[NSString stringWithFormat:@"%@%@", name, @"Flags"]];
 	
 }
 

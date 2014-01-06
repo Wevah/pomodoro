@@ -62,7 +62,7 @@
 - (NSString *)applicationSupportFolder {
 	
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : NSTemporaryDirectory();
+    NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
     return [basePath stringByAppendingPathComponent:@"Pomodoro"];
 }
 
@@ -109,9 +109,8 @@
 	//[fileManager createFileAtPath:[applicationSupportFolder stringByAppendingPathComponent:@"Pomodoros.txt"] contents:nil attributes:nil];
     url = [NSURL fileURLWithPath: [applicationSupportFolder stringByAppendingPathComponent: @"Pomodoro.sql"]];
    
-	NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-							 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-							 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+	NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
+							 NSInferMappingModelAutomaticallyOption: @YES};
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]){
         [[NSApplication sharedApplication] presentError:error];
@@ -164,24 +163,24 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (IBAction) resetGlobalStatistics:(id)sender {
 	
 	[[NSUserDefaults standardUserDefaults] setObject: [NSDate date] forKey:@"globalStartDate"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"globalPomodoroStarted"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"globalInternalInterruptions"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"globalExternalInterruptions"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"globalPomodoroResumed"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"globalPomodoroReset"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"globalPomodoroDone"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"globalPomodoroStarted"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"globalInternalInterruptions"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"globalExternalInterruptions"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"globalPomodoroResumed"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"globalPomodoroReset"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"globalPomodoroDone"];
 	
 }
 
 - (IBAction) resetDailyStatistics:(id)sender {
 	
 	[[NSUserDefaults standardUserDefaults] setObject: [NSDate date] forKey:@"dailyStartDate"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"dailyPomodoroStarted"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"dailyInternalInterruptions"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"dailyExternalInterruptions"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"dailyPomodoroResumed"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"dailyPomodoroReset"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:0] forKey:@"dailyPomodoroDone"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"dailyPomodoroStarted"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"dailyInternalInterruptions"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"dailyExternalInterruptions"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"dailyPomodoroResumed"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"dailyPomodoroReset"];
+	[[NSUserDefaults standardUserDefaults] setObject: @0 forKey:@"dailyPomodoroDone"];
 	
 }
 
@@ -311,7 +310,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	NSSortDescriptor* sort = [[NSSortDescriptor alloc] 
 							  initWithKey:@"when" ascending:NO];
 	[pomos setSortDescriptors:
-	 [NSArray arrayWithObject: sort]];
+	 @[sort]];
 
 		
 }

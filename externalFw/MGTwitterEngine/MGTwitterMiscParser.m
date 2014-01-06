@@ -29,7 +29,7 @@
 	}
 	
 	// Create relevant name-value pair.
-	[currentNode setObject:[NSMutableString string] forKey:elementName];
+	currentNode[elementName] = [NSMutableString string];
 }
 
 
@@ -39,8 +39,8 @@
     [super parser:theParser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName];
     
     if ([elementName isEqualToString:@"remaining_hits"]) {
-        NSNumber *hits = [NSNumber numberWithInt:[[currentNode objectForKey:elementName] intValue]];
-        [currentNode setObject:hits forKey:elementName];
+        NSNumber *hits = @([currentNode[elementName] intValue]);
+        currentNode[elementName] = hits;
     }
 }
 

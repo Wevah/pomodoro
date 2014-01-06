@@ -90,14 +90,14 @@ static NSString * const DefaultUrlPattern = @"http*://*.blocked.com/*";
     into one master NSPredicate for faster matching. If there's no URL patterns to match we return a predicate that always says NO. */
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:DefaultsKeyUrls]) {
-        NSArray *patternsArray = [change objectForKey:NSKeyValueChangeNewKey];
+        NSArray *patternsArray = change[NSKeyValueChangeNewKey];
         //NSLog(@"change to urls: %@", patternsArray);
         NSPredicate *predicate = nil;
         if (![patternsArray isEqualTo:[NSNull null]] && [patternsArray count] > 0) {
             NSMutableArray *conditions = [NSMutableArray arrayWithCapacity:[patternsArray count]];
             for (NSDictionary *patternObj in patternsArray) {
                 NSString *condition = [NSString stringWithFormat:@"(SELF LIKE \"%@\")",
-                                       [[patternObj objectForKey:@"url"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];
+                                       [patternObj[@"url"] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];
                 [conditions addObject:condition];
             }
             NSString *completePredicateString = [conditions componentsJoinedByString:@" OR "];
@@ -128,7 +128,7 @@ static NSString * const DefaultUrlPattern = @"http*://*.blocked.com/*";
 
 - (NSDictionary *)urlPatternObjectWithPattern:(NSString *)pattern {
     if (!pattern) pattern = DefaultUrlPattern;
-    return [NSDictionary dictionaryWithObject:pattern forKey:@"url"];
+    return @{@"url": pattern};
 }
 
 @end

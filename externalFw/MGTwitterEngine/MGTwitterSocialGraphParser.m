@@ -30,7 +30,7 @@
         currentNode = newNode;
 	} else if (currentNode && ![elementName isEqualToString:@"id"]) {
         // Create relevant name-value pair.
-        [currentNode setObject:[NSMutableString string] forKey:elementName];
+        currentNode[elementName] = [NSMutableString string];
     }
 }
 
@@ -42,7 +42,7 @@
 		[twitterIDs addObject:characters];
 	// Append found characters to value of lastOpenedElement in currentNode.
 	} else if (lastOpenedElement && currentNode) {
-		[[currentNode objectForKey:lastOpenedElement] appendString:characters];
+		[currentNode[lastOpenedElement] appendString:characters];
     }
 }
 
@@ -58,7 +58,7 @@
 		[self addSource];
 		currentNode = nil;
 	} else if ([elementName isEqualToString:@"ids"]) {
-		[currentNode setObject:twitterIDs forKey:elementName];
+		currentNode[elementName] = twitterIDs;
 		currentNode = [parsedObjects lastObject];
 	} 
 }

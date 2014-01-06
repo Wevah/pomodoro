@@ -322,7 +322,7 @@
 
 - (void)closeConnection:(NSString *)connectionIdentifier
 {
-    MGTwitterHTTPURLConnection *connection = [_connections objectForKey:connectionIdentifier];
+    MGTwitterHTTPURLConnection *connection = _connections[connectionIdentifier];
     if (connection) {
         [connection cancel];
         [_connections removeObjectForKey:connectionIdentifier];
@@ -372,9 +372,9 @@
             } else if (i > 0) {
                 [str appendString:@"&"];
             }
-            NSString *name = [names objectAtIndex:i];
+            NSString *name = names[i];
             [str appendString:[NSString stringWithFormat:@"%@=%@", 
-             name, [self _encodeString:[params objectForKey:name]]]];
+             name, [self _encodeString:params[name]]]];
         }
     }
     
@@ -433,7 +433,7 @@
     if (!connection) {
         return nil;
     } else {
-        [_connections setObject:connection forKey:[connection identifier]];
+        _connections[[connection identifier]] = connection;
     }
 	
 	if ([self _isValidDelegateForSelector:@selector(connectionStarted:)])
@@ -503,7 +503,7 @@
     if (!connection) {
         return nil;
     } else {
-        [_connections setObject:connection forKey:[connection identifier]];
+        _connections[[connection identifier]] = connection;
     }
 	
 	if ([self _isValidDelegateForSelector:@selector(connectionStarted:)])
@@ -564,7 +564,7 @@
     if (!connection) {
         return nil;
     } else {
-        [_connections setObject:connection forKey:[connection identifier]];
+        _connections[[connection identifier]] = connection;
     }
 	
 	if ([self _isValidDelegateForSelector:@selector(connectionStarted:)])
@@ -580,7 +580,7 @@
                                     requestType:(MGTwitterRequestType)requestType 
                                 queryParameters:(NSDictionary *)params 
 {
-	NSString *contentType = [params objectForKey:@"Content-Type"];
+	NSString *contentType = params[@"Content-Type"];
 	if(contentType){
 		params = [params MGTE_dictionaryByRemovingObjectForKey:@"Content-Type"];
 	}else{
@@ -805,7 +805,7 @@
 		case MGTwitterOAuthToken: {;
 			OAToken *token = [[OAToken alloc] initWithHTTPResponseBody:[[NSString alloc] initWithData:xmlData encoding:NSUTF8StringEncoding]];
 			[self parsingSucceededForRequest:identifier ofResponseType:requestType
-						   withParsedObjects:[NSArray arrayWithObject:token]];
+						   withParsedObjects:@[token]];
         }
         default:
             break;
@@ -909,7 +909,7 @@
 			break;			
 		case MGTwitterOAuthTokenRequest:
 			if ([self _isValidDelegateForSelector:@selector(accessTokenReceived:forRequest:)] && [parsedObjects count] > 0)
-				[_delegate accessTokenReceived:[parsedObjects objectAtIndex:0]
+				[_delegate accessTokenReceived:parsedObjects[0]
 									forRequest:identifier];
 			break;
         default:
@@ -970,7 +970,7 @@
         if (statusCode == 304) {
             [self parsingSucceededForRequest:[connection identifier] 
                               ofResponseType:[connection responseType] 
-                           withParsedObjects:[NSArray array]];
+                           withParsedObjects:@[]];
         }
         
         // Destroy the connection.
@@ -1028,10 +1028,8 @@
         NSData *receivedData = [connection data];
         NSString *body = [receivedData length] ? [NSString stringWithUTF8String:[receivedData bytes]] : @"";
 
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  [connection response], @"response",
-                                  body, @"body",
-                                  nil];
+        NSDictionary *userInfo = @{@"response": [connection response],
+                                  @"body": body};
         NSError *error = [NSError errorWithDomain:@"HTTP" code:statusCode userInfo:userInfo];
 		if ([self _isValidDelegateForSelector:@selector(requestFailed:withError:)])
 			[_delegate requestFailed:[connection identifier] withError:error];
@@ -1124,16 +1122,16 @@
   
   NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
   if (sinceID > 0) {
-    [params setObject:[NSString stringWithFormat:@"%llu", sinceID] forKey:@"since_id"];
+    params[@"since_id"] = [NSString stringWithFormat:@"%llu", sinceID];
   }
   if (maxID > 0) {
-    [params setObject:[NSString stringWithFormat:@"%llu", maxID] forKey:@"max_id"];
+    params[@"max_id"] = [NSString stringWithFormat:@"%llu", maxID];
   }
   if (page > 0) {
-    [params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+    params[@"page"] = [NSString stringWithFormat:@"%d", page];
   }
   if (count > 0) {
-    [params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+    params[@"count"] = [NSString stringWithFormat:@"%d", count];
   }
   
   return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
@@ -1155,16 +1153,16 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (sinceID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", sinceID] forKey:@"since_id"];
+        params[@"since_id"] = [NSString stringWithFormat:@"%llu", sinceID];
     }
     if (maxID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", maxID] forKey:@"max_id"];
+        params[@"max_id"] = [NSString stringWithFormat:@"%llu", maxID];
     }
     if (page > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        params[@"page"] = [NSString stringWithFormat:@"%d", page];
     }
     if (count > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+        params[@"count"] = [NSString stringWithFormat:@"%d", count];
     }
     
     return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
@@ -1188,16 +1186,16 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (sinceID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", sinceID] forKey:@"since_id"];
+        params[@"since_id"] = [NSString stringWithFormat:@"%llu", sinceID];
     }
     if (maxID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", maxID] forKey:@"max_id"];
+        params[@"max_id"] = [NSString stringWithFormat:@"%llu", maxID];
     }
 	if (page > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        params[@"page"] = [NSString stringWithFormat:@"%d", page];
     }
     if (count > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+        params[@"count"] = [NSString stringWithFormat:@"%d", count];
     }
     if (username) {
         path = [NSString stringWithFormat:@"statuses/user_timeline/%@.%@", username, API_FORMAT];
@@ -1253,14 +1251,14 @@
     }
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
-    [params setObject:trimmedText forKey:@"status"];
+    params[@"status"] = trimmedText;
     if (updateID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", updateID] forKey:@"in_reply_to_status_id"];
+        params[@"in_reply_to_status_id"] = [NSString stringWithFormat:@"%llu", updateID];
     }
 	if (latitude >= -90.0 && latitude <= 90.0 &&
 		longitude >= -180.0 && longitude <= 180.0) {
-		[params setObject:[NSString stringWithFormat:@"%.8f", latitude] forKey:@"lat"];
-		[params setObject:[NSString stringWithFormat:@"%.8f", longitude] forKey:@"long"];
+		params[@"lat"] = [NSString stringWithFormat:@"%.8f", latitude];
+		params[@"long"] = [NSString stringWithFormat:@"%.8f", longitude];
 	}
 	
     NSString *body = [self _queryStringWithBase:nil parameters:params prefixed:NO];
@@ -1301,16 +1299,16 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (sinceID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", sinceID] forKey:@"since_id"];
+        params[@"since_id"] = [NSString stringWithFormat:@"%llu", sinceID];
     }
     if (maxID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", maxID] forKey:@"max_id"];
+        params[@"max_id"] = [NSString stringWithFormat:@"%llu", maxID];
     }
     if (page > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        params[@"page"] = [NSString stringWithFormat:@"%d", page];
     }
     if (count > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+        params[@"count"] = [NSString stringWithFormat:@"%d", count];
     }
     
     return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
@@ -1359,7 +1357,7 @@
 		requestType = MGTwitterFriendUpdatesForUserRequest;
     }
     if (page > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        params[@"page"] = [NSString stringWithFormat:@"%d", page];
     }
     
     return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
@@ -1377,7 +1375,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (!flag) {
-        [params setObject:@"true" forKey:@"lite"]; // slightly bizarre, but correct.
+        params[@"lite"] = @"true"; // slightly bizarre, but correct.
     }
     
     return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
@@ -1421,7 +1419,7 @@
     NSString *path = [NSString stringWithFormat:@"users/show.%@", API_FORMAT];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (email) {
-        [params setObject:email forKey:@"email"];
+        params[@"email"] = email;
     } else {
         return nil;
     }
@@ -1446,16 +1444,16 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (sinceID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", sinceID] forKey:@"since_id"];
+        params[@"since_id"] = [NSString stringWithFormat:@"%llu", sinceID];
     }
     if (maxID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", maxID] forKey:@"max_id"];
+        params[@"max_id"] = [NSString stringWithFormat:@"%llu", maxID];
     }
     if (page > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        params[@"page"] = [NSString stringWithFormat:@"%d", page];
     }
     if (count > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+        params[@"count"] = [NSString stringWithFormat:@"%d", count];
     }
     
     return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
@@ -1477,16 +1475,16 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (sinceID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", sinceID] forKey:@"since_id"];
+        params[@"since_id"] = [NSString stringWithFormat:@"%llu", sinceID];
     }
     if (maxID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%llu", maxID] forKey:@"max_id"];
+        params[@"max_id"] = [NSString stringWithFormat:@"%llu", maxID];
     }
     if (page > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        params[@"page"] = [NSString stringWithFormat:@"%d", page];
     }
     if (count > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+        params[@"count"] = [NSString stringWithFormat:@"%d", count];
     }
     
     return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
@@ -1512,8 +1510,8 @@
     }
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
-    [params setObject:trimmedText forKey:@"text"];
-    [params setObject:username forKey:@"user"];
+    params[@"text"] = trimmedText;
+    params[@"user"] = username;
     NSString *body = [self _queryStringWithBase:nil parameters:params prefixed:NO];
     
     return [self _sendRequestWithMethod:HTTP_POST_METHOD path:path 
@@ -1553,13 +1551,13 @@
 	NSString *path = [NSString stringWithFormat:@"%@/lists.%@", username, API_FORMAT];
 	
     NSMutableDictionary *queryParameters = [NSMutableDictionary dictionaryWithCapacity:0];
-	if ([options objectForKey:@"mode"]) {
-		[queryParameters setObject:[options objectForKey:@"mode"] forKey:@"mode"];
+	if (options[@"mode"]) {
+		queryParameters[@"mode"] = options[@"mode"];
 	}
-	if ([options objectForKey:@"description"]) {
-		[queryParameters setObject:[options objectForKey:@"description"] forKey:@"description"];
+	if (options[@"description"]) {
+		queryParameters[@"description"] = options[@"description"];
 	}
-	[queryParameters setObject:listName forKey:@"name"];
+	queryParameters[@"name"] = listName;
     NSString *body = [self _queryStringWithBase:nil parameters:queryParameters prefixed:NO];
     
     return [self _sendRequestWithMethod:HTTP_POST_METHOD path:path 
@@ -1577,14 +1575,14 @@
 	NSString *path = [NSString stringWithFormat:@"%@/lists/%llu.%@", username, listID, API_FORMAT];
 	
     NSMutableDictionary *queryParameters = [NSMutableDictionary dictionaryWithCapacity:0];
-	if ([options objectForKey:@"name"]) {
-		[queryParameters setObject:[options objectForKey:@"name"] forKey:@"name"];
+	if (options[@"name"]) {
+		queryParameters[@"name"] = options[@"name"];
 	}
-	if ([options objectForKey:@"mode"]) {
-		[queryParameters setObject:[options objectForKey:@"mode"] forKey:@"mode"];
+	if (options[@"mode"]) {
+		queryParameters[@"mode"] = options[@"mode"];
 	}
-	if ([options objectForKey:@"description"]) {
-		[queryParameters setObject:[options objectForKey:@"description"] forKey:@"description"];
+	if (options[@"description"]) {
+		queryParameters[@"description"] = options[@"description"];
 	}
 	
     NSString *body = [self _queryStringWithBase:nil parameters:queryParameters prefixed:NO];
@@ -1648,8 +1646,8 @@
         return nil;
     }
 	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
-    [params setObject:username1 forKey:@"user_a"];
-	[params setObject:username2 forKey:@"user_b"];
+    params[@"user_a"] = username1;
+	params[@"user_b"] = username2;
 	
     NSString *path = [NSString stringWithFormat:@"friendships/exists.%@", API_FORMAT];
     
@@ -1703,7 +1701,7 @@
     NSMutableDictionary *params = nil;
     if (title) {
         params = [NSMutableDictionary dictionaryWithCapacity:0];
-        [params setObject:title forKey:@"title"];
+        params[@"title"] = title;
     }
     
     
@@ -1734,7 +1732,7 @@
     }
 
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
-    [params setObject:trimmedLocation forKey:@"location"];
+    params[@"location"] = trimmedLocation;
     NSString *body = [self _queryStringWithBase:nil parameters:params prefixed:NO];
     
     return [self _sendRequestWithMethod:HTTP_POST_METHOD path:path 
@@ -1759,7 +1757,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (deliveryMethod) {
-        [params setObject:deliveryMethod forKey:@"device"];
+        params[@"device"] = deliveryMethod;
     }
     
     return [self _sendRequestWithMethod:HTTP_POST_METHOD path:path queryParameters:params body:nil 
@@ -1791,7 +1789,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (page > 0) {
-        [params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        params[@"page"] = [NSString stringWithFormat:@"%d", page];
     }
     if (username) {
         path = [NSString stringWithFormat:@"favorites/%@.%@", username, API_FORMAT];
@@ -1925,7 +1923,7 @@
         path = [NSString stringWithFormat:@"friends/ids/%@.%@", username, API_FORMAT];
     }
 	
-	[params setObject:[NSString stringWithFormat:@"%lld", cursor] forKey:@"cursor"];
+	params[@"cursor"] = [NSString stringWithFormat:@"%lld", cursor];
     
     return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
                             requestType:MGTwitterFriendIDsRequest 
@@ -1946,7 +1944,7 @@
         path = [NSString stringWithFormat:@"followers/ids/%@.%@", username, API_FORMAT];
     }
 	
-	[params setObject:[NSString stringWithFormat:@"%lld", cursor] forKey:@"cursor"];
+	params[@"cursor"] = [NSString stringWithFormat:@"%lld", cursor];
 	
     return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
                             requestType:MGTwitterFollowerIDsRequest 
@@ -2112,11 +2110,9 @@
 	
 	[request setHTTPMethod:@"POST"];
 	
-	[request setParameters:[NSArray arrayWithObjects:
-							[OARequestParameter requestParameterWithName:@"x_auth_mode" value:@"client_auth"],
+	[request setParameters:@[[OARequestParameter requestParameterWithName:@"x_auth_mode" value:@"client_auth"],
 							[OARequestParameter requestParameterWithName:@"x_auth_username" value:username],
-							[OARequestParameter requestParameterWithName:@"x_auth_password" value:password],
-							nil]];		
+							[OARequestParameter requestParameterWithName:@"x_auth_password" value:password]]];		
 	
     // Create a connection using this request, with the default timeout and caching policy, 
     // and appropriate Twitter request and response types for parsing and error reporting.
@@ -2131,7 +2127,7 @@
     if (!connection) {
         return nil;
     } else {
-        [_connections setObject:connection forKey:[connection identifier]];
+        _connections[[connection identifier]] = connection;
     }
 	
 	if ([self _isValidDelegateForSelector:@selector(connectionStarted:)])

@@ -37,15 +37,10 @@
 
 
 - (NSDictionary *) registrationDictionaryForGrowl {
-    NSArray *array = [NSArray arrayWithObjects:@"pomodoro", nil]; 
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSNumber numberWithInt:1],
-                          @"TicketVersion",
-                          array, 
-                          @"AllNotifications",
-                          array,
-                          @"DefaultNotifications",
-                          nil];
+    NSArray *array = @[@"pomodoro"]; 
+    NSDictionary *dict = @{@"TicketVersion": @1,
+                          @"AllNotifications": array,
+                          @"DefaultNotifications": array};
     return dict;
 }
 

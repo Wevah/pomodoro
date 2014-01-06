@@ -36,7 +36,7 @@
 				NSString *string = [self _nodeValueAsString];
 				if (string)
 				{
-					[dictionary setObject:string forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = string;
 				}
 			}
 			 
@@ -52,7 +52,7 @@
 		name = xmlTextReaderConstName(_reader);
 	}
 	
-	[dictionary setObject:[NSNumber numberWithInt:requestType] forKey:TWITTER_SOURCE_REQUEST_TYPE];	
+	dictionary[TWITTER_SOURCE_REQUEST_TYPE] = @(requestType);
 	[parsedObjects addObject:dictionary];
 }
 
@@ -90,7 +90,7 @@
 		name = xmlTextReaderConstName(_reader);
 	}
 
-	[dictionary setObject:twitterIDs forKey:[NSString stringWithUTF8String:(const char *)name]];
+	dictionary[@((const char *)name)] = twitterIDs;
 	
 	return dictionary;
 }

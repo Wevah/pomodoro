@@ -45,7 +45,7 @@
 }
 
 - (NSString*) bindCommonVariables:(NSString*)name {
-	NSArray* variables = [NSArray arrayWithObjects:@"$pomodoroName", @"$duration", @"$dailyPomodoroDone", @"$globalPomodoroDone",nil];
+	NSArray* variables = @[@"$pomodoroName", @"$duration", @"$dailyPomodoroDone", @"$globalPomodoroDone"];
 	NSString* durationString = [[[NSUserDefaults standardUserDefaults] objectForKey:@"initialTime"] stringValue];
 	NSString* dailyPomodoroDone = [[[NSUserDefaults standardUserDefaults] objectForKey:@"dailyPomodoroDone"] stringValue];
 	NSString* globalPomodoroDone = [[[NSUserDefaults standardUserDefaults] objectForKey:@"globalPomodoroDone"] stringValue];
@@ -58,7 +58,7 @@
 		globalPomodoroDone = @"0";
 	}
     
-	NSArray* values = [NSArray arrayWithObjects:[[NSUserDefaults standardUserDefaults] objectForKey:@"pomodoroName"], durationString, dailyPomodoroDone, globalPomodoroDone, nil];
+	NSArray* values = @[[[NSUserDefaults standardUserDefaults] objectForKey:@"pomodoroName"], durationString, dailyPomodoroDone, globalPomodoroDone];
 	return [Binder substituteDefault:name withVariables:variables andValues:values];
 }	
 

@@ -153,9 +153,9 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 		return nil;
 	}
 
-	NSString *intString = [NSString stringWithUTF8String:(const char *)nodeValue];
+	NSString *intString = @((const char *)nodeValue);
 	xmlFree(nodeValue);
-    return [NSNumber numberWithLongLong:[intString longLongValue]];
+    return @([intString longLongValue]);
 }
 
 - (NSNumber *)_nodeValueAsBool
@@ -166,9 +166,9 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 		return nil;
 	}
 
-	NSString *boolString = [NSString stringWithUTF8String:(const char *)nodeValue];
+	NSString *boolString = @((const char *)nodeValue);
 	xmlFree(nodeValue);
-	return [NSNumber numberWithBool:[boolString isEqualToString:@"true"]];
+	return @([boolString isEqualToString:@"true"]);
 }
 
 - (NSDictionary *)_statusDictionaryForNodeWithName:(const xmlChar *)parentNodeName
@@ -189,7 +189,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 			if (xmlStrEqual(name, BAD_CAST "user"))
 			{
 				// "user" is the name of a sub-dictionary in each <status> item
-				[dictionary setObject:[self _userDictionaryForNodeWithName:name] forKey:@"user"];
+				dictionary[@"user"] = [self _userDictionaryForNodeWithName:name];
 			}
 			else if (xmlStrEqual(name, BAD_CAST "id") || xmlStrEqual(name, BAD_CAST "in_reply_to_user_id") || xmlStrEqual(name, BAD_CAST "in_reply_to_status_id"))
 			{
@@ -197,7 +197,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 				NSNumber *number = [self _nodeValueAsInt];
 				if (number)
 				{
-					[dictionary setObject:number forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = number;
 				}
 			}
 			else if (xmlStrEqual(name, BAD_CAST "created_at"))
@@ -206,7 +206,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 				NSDate *date = [self _nodeValueAsDate];
 				if (date)
 				{
-					[dictionary setObject:date forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = date;
 				}
 			}
 			else if (xmlStrEqual(name, BAD_CAST "truncated") || xmlStrEqual(name, BAD_CAST "favorited"))
@@ -215,12 +215,12 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 				NSNumber *number = [self _nodeValueAsBool];
 				if (number)
 				{
-					[dictionary setObject:number forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = number;
 				}
 			}
       else if (xmlStrEqual(name, BAD_CAST "retweeted_status"))
       {
-        [dictionary setObject:[self _statusDictionaryForNodeWithName:name] forKey:[NSString stringWithUTF8String:(const char *)name]];
+        dictionary[@((const char *)name)] = [self _statusDictionaryForNodeWithName:name];
       }
 			else
 			{
@@ -228,7 +228,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 				NSString *string = [self _nodeValueAsString];
 				if (string)
 				{
-					[dictionary setObject:string forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = string;
 				}
 			}
 		}
@@ -242,7 +242,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 	}
 
 	// save the request type in the tweet
-	[dictionary setObject:[NSNumber numberWithInt:requestType] forKey:TWITTER_SOURCE_REQUEST_TYPE];
+	dictionary[TWITTER_SOURCE_REQUEST_TYPE] = @(requestType);
 
 	return dictionary;
 }
@@ -270,7 +270,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 				NSNumber *number = [self _nodeValueAsInt];
 				if (number)
 				{
-					[dictionary setObject:number forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = number;
 				}
 			}
 			else if (xmlStrEqual(name, BAD_CAST "protected"))
@@ -279,7 +279,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 				NSNumber *number = [self _nodeValueAsBool];
 				if (number)
 				{
-					[dictionary setObject:number forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = number;
 				}
 			}
 			else
@@ -288,7 +288,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 				NSString *s = [self _nodeValueAsString];
 				if (s)
 				{
-					[dictionary setObject:s forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = s;
 				}
 			}
 		}
@@ -326,7 +326,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 				NSNumber *number = [self _nodeValueAsInt];
 				if (number)
 				{
-					[dictionary setObject:number forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = number;
 				}
 			}
 			else
@@ -335,7 +335,7 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 				NSString *s = [self _nodeValueAsString];
 				if (s)
 				{
-					[dictionary setObject:s forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = s;
 				}
 			}
 		}

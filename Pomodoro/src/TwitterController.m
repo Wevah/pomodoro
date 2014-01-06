@@ -49,7 +49,7 @@
     NSLog(@"Twitter request failed! (%@) Error: %@ (%@)", 
           requestIdentifier, 
           [error localizedDescription], 
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+          [error userInfo][NSURLErrorFailingURLStringErrorKey]);
     
 	[twitterStatus setImage:redButtonImage];
 	[twitterProgress stopAnimation:self];

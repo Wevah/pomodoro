@@ -37,15 +37,15 @@
 }
 
 - (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index {
-	NSString *v = [voices objectAtIndex:index]; 
-    return [[NSSpeechSynthesizer attributesForVoice:v] objectForKey:NSVoiceName]; 
+	NSString *v = voices[index]; 
+    return [NSSpeechSynthesizer attributesForVoice:v][NSVoiceName]; 
 }
 
 #pragma mark ---- KVO Utility ----
 
 - (void)setVoiceByName:(NSString *)theName {
     for (NSString *voiceId in voices) {
-        NSString *voiceName = [[NSSpeechSynthesizer attributesForVoice:voiceId] objectForKey:NSVoiceName];
+        NSString *voiceName = [NSSpeechSynthesizer attributesForVoice:voiceId][NSVoiceName];
         if ([voiceName compare:theName] == NSOrderedSame) {
             [speech setVoice:voiceId];
             break;
@@ -59,8 +59,8 @@
                        context:(void *)context {
     
     if ([keyPath hasSuffix:@"Volume"]) {
-        NSInteger volume = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
-        NSInteger oldVolume = [[change objectForKey:NSKeyValueChangeOldKey] intValue];
+        NSInteger volume = [change[NSKeyValueChangeNewKey] intValue];
+        NSInteger oldVolume = [change[NSKeyValueChangeOldKey] intValue];
         
         if (volume != oldVolume) {
             float newVolume = volume/100.0;
@@ -171,9 +171,9 @@
 
 - (void)awakeFromNib {
     
-    [speechEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:2]];
-    [speechEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:5]];
-    [speechEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:10]];
+    [speechEveryCombo addItemWithObjectValue: @2];
+    [speechEveryCombo addItemWithObjectValue: @5];
+    [speechEveryCombo addItemWithObjectValue: @10];
     voices = [NSSpeechSynthesizer availableVoices];
     
     [speech setVolume:_voiceVolume/100.0];

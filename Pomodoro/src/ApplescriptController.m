@@ -57,7 +57,7 @@
 - (IBAction)showScriptingPanel:(id)sender {
     
     [scriptView unbind:@"data"];
-    NSString* scriptToShow = [NSString stringWithFormat:@"values.script%@", [scriptNames objectAtIndex:[sender tag]]];
+    NSString* scriptToShow = [NSString stringWithFormat:@"values.script%@", scriptNames[[sender tag]]];
     [scriptView bind:@"data" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:scriptToShow options:nil];
     
     [scriptPanel makeKeyAndOrderFront:self];
@@ -184,11 +184,11 @@
     
     [self registerForAllPomodoroEvents];
     
-    scriptNames = [NSArray arrayWithObjects:@"Start",@"Interrupt",@"InterruptOver", @"Reset", @"Resume", @"End", @"BreakFinished", @"Every", nil];
+    scriptNames = @[@"Start",@"Interrupt",@"InterruptOver", @"Reset", @"Resume", @"End", @"BreakFinished", @"Every"];
     
-    [scriptEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:2]];
-    [scriptEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:5]];
-    [scriptEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:10]];
+    [scriptEveryCombo addItemWithObjectValue: @2];
+    [scriptEveryCombo addItemWithObjectValue: @5];
+    [scriptEveryCombo addItemWithObjectValue: @10];
     
 }
 

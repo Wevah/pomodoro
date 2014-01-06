@@ -47,7 +47,7 @@
                        context:(void *)context {
     	
 	if ([keyPath isEqualToString:@"startOnLoginEnabled"]) { 
-		BOOL loginEnabled = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
+		BOOL loginEnabled = [change[NSKeyValueChangeNewKey] boolValue];
 		if (loginEnabled) {
 			[self insertIntoLoginItems];
 		} else {

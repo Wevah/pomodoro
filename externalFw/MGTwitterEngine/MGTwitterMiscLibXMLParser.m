@@ -34,7 +34,7 @@
 				if (string)
 				{
 					NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-					[dictionary setObject:string forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = string;
 					[parsedObjects addObject:dictionary];
 				}
 			}

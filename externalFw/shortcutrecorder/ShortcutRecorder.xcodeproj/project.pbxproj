@@ -713,7 +713,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Framework/SR_LeopardFramework-Info.plist";
 				INSTALL_PATH = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -740,7 +740,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Framework/SR_LeopardFramework-Info.plist";
 				INSTALL_PATH = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,

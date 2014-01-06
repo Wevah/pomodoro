@@ -30,21 +30,21 @@
     } else if ([elementName isEqualToString:@"user"]) {
         // Add a 'user' dictionary to current node.
         NSMutableDictionary *newNode = [NSMutableDictionary dictionaryWithCapacity:0];
-        [currentNode setObject:newNode forKey:elementName];
+        currentNode[elementName] = newNode;
         currentNode = newNode;
     } else if ([elementName isEqualToString:@"place"]) {
         // Add a 'place' dictionary to current node.
         NSMutableDictionary *newNode = [NSMutableDictionary dictionaryWithCapacity:0];
-        [currentNode setObject:newNode forKey:elementName];
+        currentNode[elementName] = newNode;
         currentNode = newNode;
     } else if ([elementName isEqualToString:@"retweeted_status"]) {
         // Add a 'retweet_status' dictionary to current node.
         NSMutableDictionary *newNode = [NSMutableDictionary dictionaryWithCapacity:0];
-        [currentNode setObject:newNode forKey:elementName];
+        currentNode[elementName] = newNode;
         currentNode = newNode;
     } else if (currentNode) {
         // Create relevant name-value pair.
-        [currentNode setObject:[NSMutableString string] forKey:elementName];
+        currentNode[elementName] = [NSMutableString string];
     }
 }
 
@@ -54,7 +54,7 @@
     //NSLog(@"Found characters: %@", characters);
     // Append found characters to value of lastOpenedElement in currentNode.
     if (lastOpenedElement && currentNode) {
-        [[currentNode objectForKey:lastOpenedElement] appendString:characters];
+        [currentNode[lastOpenedElement] appendString:characters];
     }
 }
 

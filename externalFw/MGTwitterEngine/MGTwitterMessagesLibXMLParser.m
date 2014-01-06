@@ -28,7 +28,7 @@
 			if (xmlStrEqual(name, BAD_CAST "sender") || xmlStrEqual(name, BAD_CAST "recipient"))
 			{
 				// "user" is the name of a sub-dictionary in each <status> item
-				[dictionary setObject:[self _userDictionaryForNodeWithName:name] forKey:[NSString stringWithUTF8String:(const char *)name]];
+				dictionary[@((const char *)name)] = [self _userDictionaryForNodeWithName:name];
 			}
 			else if (xmlStrEqual(name, BAD_CAST "id") || xmlStrEqual(name, BAD_CAST "sender_id") || xmlStrEqual(name, BAD_CAST "recipient_id"))
 			{
@@ -36,7 +36,7 @@
 				NSNumber *number = [self _nodeValueAsInt];
 				if (number)
 				{
-					[dictionary setObject:number forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = number;
 				}
 			}
 			else if (xmlStrEqual(name, BAD_CAST "created_at"))
@@ -45,7 +45,7 @@
 				NSDate *date = [self _nodeValueAsDate];
 				if (date)
 				{
-					[dictionary setObject:date forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = date;
 				}
 			}
 			else if (xmlStrEqual(name, BAD_CAST "protected"))
@@ -54,7 +54,7 @@
 				NSNumber *number = [self _nodeValueAsBool];
 				if (number)
 				{
-					[dictionary setObject:number forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = number;
 				}
 			}
 			else
@@ -63,7 +63,7 @@
 				NSString *string = [self _nodeValueAsString];
 				if (string)
 				{
-					[dictionary setObject:string forKey:[NSString stringWithUTF8String:(const char *)name]];
+					dictionary[@((const char *)name)] = string;
 				}
 			}
 		}
@@ -77,7 +77,7 @@
 	}
 
 	// save the request type in the tweet
-	[dictionary setObject:[NSNumber numberWithInt:requestType] forKey:TWITTER_SOURCE_REQUEST_TYPE];
+	dictionary[TWITTER_SOURCE_REQUEST_TYPE] = @(requestType);
 
 	return dictionary;
 }

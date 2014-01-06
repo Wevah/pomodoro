@@ -190,9 +190,9 @@
     greenButtonImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"green" ofType:@"png"]];
     yellowButtonImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"yellow" ofType:@"png"]];
     
-    [growlEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:2]];
-    [growlEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:5]];
-    [growlEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:10]];
+    [growlEveryCombo addItemWithObjectValue: @2];
+    [growlEveryCombo addItemWithObjectValue: @5];
+    [growlEveryCombo addItemWithObjectValue: @10];
     
 }
 

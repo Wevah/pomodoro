@@ -35,9 +35,9 @@
 	[newPomodoro setValue:now forKey:@"when"]; 
     [newPomodoro setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"pomodoroName"] forKey:@"name"]; 
 
-	[newPomodoro setValue:[NSNumber numberWithLong:duration] forKey:@"durationMinutes"]; 
-	[newPomodoro setValue:[NSNumber numberWithLong:externalInterruptions] forKey:@"externalInterruptions"]; 
-    [newPomodoro setValue:[NSNumber numberWithLong:internalInterruptions] forKey:@"internalInterruptions"]; 
+	[newPomodoro setValue:@(duration) forKey:@"durationMinutes"]; 
+	[newPomodoro setValue:@(externalInterruptions) forKey:@"externalInterruptions"]; 
+    [newPomodoro setValue:@(internalInterruptions) forKey:@"internalInterruptions"]; 
 	
     return newPomodoro;
 

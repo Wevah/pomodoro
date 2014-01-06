@@ -38,10 +38,10 @@
 
 -(id)infoValueForKey:(NSString*)key
 { 
-    if ([[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:key])
-        return [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:key];
+    if ([[NSBundle mainBundle] localizedInfoDictionary][key])
+        return [[NSBundle mainBundle] localizedInfoDictionary][key];
     
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:key];
+    return [[NSBundle mainBundle] infoDictionary][key];
 }
 
 
@@ -51,8 +51,7 @@
 	
 	NSString *aboutString = [[NSString alloc] initWithContentsOfFile:[bundle pathForResource:@"about" ofType:@"html"] usedEncoding:NULL error:nil];
 	NSAttributedString* aboutHtml = [[NSAttributedString alloc] initWithHTML:[aboutString dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil];
-	[aboutText setLinkTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-									  [NSColor whiteColor], NSForegroundColorAttributeName,nil]];
+	[aboutText setLinkTextAttributes:@{NSForegroundColorAttributeName: [NSColor whiteColor]}];
 	[aboutText insertText:aboutHtml];
 	[aboutText setEditable:NO];
     [copyright setStringValue:[self infoValueForKey:@"NSHumanReadableCopyright"]];

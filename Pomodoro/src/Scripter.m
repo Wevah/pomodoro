@@ -41,23 +41,23 @@
 
 - (NSAppleEventDescriptor*)executeScript:(NSString*) scriptId {
 
-	NSAppleScript* applescript = [scripts objectForKey:scriptId];
+	NSAppleScript* applescript = scripts[scriptId];
 	if (nil == applescript) {
 		NSString* scriptFileName = [[NSBundle mainBundle] pathForResource: scriptId ofType: @"applescript"];
 		applescript = [[NSAppleScript alloc] initWithContentsOfURL: [NSURL fileURLWithPath: scriptFileName] error: nil];
 		[applescript compileAndReturnError:nil];
-		[scripts setObject:applescript forKey:scriptId];
+		scripts[scriptId] = applescript;
 	} 
 	return [applescript executeAndReturnError:nil];
 	
 }
 
 - (NSAppleEventDescriptor*)executeScript:(NSString *)scriptId withParameter:(NSString*)parameter {
-	NSString* scriptText = [scripts objectForKey:scriptId];
+	NSString* scriptText = scripts[scriptId];
 	if (nil == scriptText) {
 		NSURL* scriptURL = [[NSBundle mainBundle] URLForResource: scriptId withExtension: @"applescript"];
 		scriptText = [[NSString alloc] initWithContentsOfURL:scriptURL usedEncoding:NULL error:nil];
-		[scripts setObject:scriptText forKey:scriptId];
+		scripts[scriptId] = scriptText;
 	} 
 	NSAppleScript* applescript = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:scriptText, parameter]];
 	return [applescript executeAndReturnError:nil];
