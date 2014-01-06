@@ -33,10 +33,9 @@
 
 #pragma mark ---- Scripting panel delegate methods ----
 
-- (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename {
-    if ([[filename pathExtension] isEqualTo:@"pomo"] || [[filename pathExtension] isEqualTo:@"applescript"])
-        return YES;
-    return NO;
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
+	NSString *extension = [url pathExtension];
+	return [extension isEqualToString:@"pomo"] || [extension isEqualToString:@"applescript"];
 }
 
 - (IBAction)showOpenPanel:(id)sender 
