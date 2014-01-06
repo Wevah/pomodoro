@@ -116,7 +116,17 @@
 
 - (void)invoke
 {
-	[mTarget performSelector: mAction withObject: self];
+	NSMethodSignature *signature = [[mTarget class] instanceMethodSignatureForSelector:mAction];
+	NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+	[invocation setTarget:mTarget];
+	[invocation setSelector:mAction];
+
+	if ([signature numberOfArguments] > 2) {
+		__unsafe_unretained id unsafeSelf = self;
+		[invocation setArgument:&unsafeSelf atIndex:2];
+	}
+	
+	[invocation invoke];
 }
 
 @end
