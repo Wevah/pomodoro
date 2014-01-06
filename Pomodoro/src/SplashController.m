@@ -36,11 +36,9 @@
 	return self;
 }
 
-- (void)awakeFromNib {
-	
-	NSBundle *bundle = [NSBundle mainBundle];
-	
-	NSString *aboutString = [[[NSString alloc] initWithContentsOfFile:[bundle pathForResource:@"splash" ofType:@"html"]] autorelease];
+- (void)awakeFromNib {	
+	NSURL *splashURL = [[NSBundle mainBundle] URLForResource:@"splash" withExtension:@"html"];
+	NSString *aboutString = [[[NSString alloc] initWithContentsOfURL:splashURL usedEncoding:NULL error:nil] autorelease];
 	NSAttributedString* aboutHtml = [[[NSAttributedString alloc] initWithHTML:[aboutString dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil] autorelease];
 	[aboutText setLinkTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 									  [NSColor whiteColor], NSForegroundColorAttributeName,nil]];
