@@ -80,7 +80,7 @@
 	[coder encodeObject: self.themeKey forKey: @"themeKey"];
 }
 
--(NSString *)themeKey {
+- (NSString *)themeKey {
 
 	if([self target]) {
 		

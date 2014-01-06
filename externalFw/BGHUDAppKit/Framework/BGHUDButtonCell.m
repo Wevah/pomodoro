@@ -131,6 +131,10 @@
 			
 			[self drawRoundedButtonInFrame: cellFrame];
 			break;
+
+		default:
+			//nothing
+			break;
 	}
 	
 	if(buttonType == NSSwitchButton || buttonType == NSRadioButton) {
