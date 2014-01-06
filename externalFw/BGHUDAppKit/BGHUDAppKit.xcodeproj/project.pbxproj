@@ -852,10 +852,6 @@
 				INFOPLIST_FILE = "BGHUDAppKitFramework-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0xb0000000,
-				);
 				PRODUCT_NAME = BGHUDAppKit;
 				SDKROOT = macosx;
 				SEPARATE_STRIP = YES;
@@ -896,10 +892,6 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				INFOPLIST_FILE = "BGHUDAppKitFramework-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0xb0440100,
-				);
 				PRODUCT_NAME = BGHUDAppKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
@@ -920,10 +912,6 @@
 				INFOPLIST_FILE = "BGHUDAppKitFramework-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0xb0000000,
-				);
 				PRODUCT_NAME = BGHUDAppKit;
 				SDKROOT = macosx;
 				SEPARATE_STRIP = YES;

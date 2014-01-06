@@ -55,8 +55,8 @@
 - (NSAppleEventDescriptor*)executeScript:(NSString *)scriptId withParameter:(NSString*)parameter {
 	NSString* scriptText = [scripts objectForKey:scriptId];
 	if (nil == scriptText) {
-		NSString* scriptFileName = [[NSBundle mainBundle] pathForResource: scriptId ofType: @"applescript"];
-		scriptText = [[NSString alloc] initWithContentsOfURL: [NSURL fileURLWithPath: scriptFileName]];
+		NSURL* scriptURL = [[NSBundle mainBundle] URLForResource: scriptId withExtension: @"applescript"];
+		scriptText = [[NSString alloc] initWithContentsOfURL:scriptURL usedEncoding:NULL error:nil];
 		[scripts setObject:scriptText forKey:scriptId];
 	} 
 	NSAppleScript* applescript = [[[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:scriptText, parameter]] autorelease];

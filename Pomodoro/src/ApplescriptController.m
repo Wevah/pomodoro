@@ -33,19 +33,6 @@
 
 #pragma mark ---- Scripting panel delegate methods ----
 
-- (void)openPanelDidEnd:(NSOpenPanel *)openPanel 
-             returnCode:(int)returnCode 
-            contextInfo:(void *)x 
-{ 
-    if (returnCode == NSOKButton) { 
-		NSString *path = [openPanel filename]; 
-		NSString *script = [[NSString alloc] initWithContentsOfFile:path];
-		[scriptView setSource:script];
-		[script release];				
-    } 
-} 
-
-
 - (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename {
     if ([[filename pathExtension] isEqualTo:@"pomo"] || [[filename pathExtension] isEqualTo:@"applescript"])
         return YES;
@@ -56,15 +43,17 @@
 { 
     NSOpenPanel *panel = [NSOpenPanel openPanel]; 
 	[panel setDelegate:self];
-    [panel beginSheetForDirectory:nil 
-                             file:nil 
-							types: [NSArray arrayWithObjects:@"pomo", @"applescript",nil]
-                   modalForWindow:scriptPanel 
-                    modalDelegate:self 
-                   didEndSelector: 
-	 @selector(openPanelDidEnd:returnCode:contextInfo:) 
-                      contextInfo:sender]; 
-} 
+	[panel setAllowedFileTypes:@[@"pomo", @"applescript"]];
+	[panel beginSheetModalForWindow:scriptPanel completionHandler:^(NSInteger result) {
+		if (result == NSFileHandlingPanelOKButton) {
+			NSURL *url = [panel URL];
+			NSString *script = [[NSString alloc] initWithContentsOfURL:url usedEncoding:NULL error:nil];
+			[scriptView setSource:script];
+			[script release];
+		}
+
+	}];
+}
 
 - (IBAction)showScriptingPanel:(id)sender {
     
@@ -174,8 +163,8 @@
     
     NSInteger time = [[notification object] integerValue];
     NSInteger timePassed = (_initialTime*60) - time;
-	NSString* timePassedString = [NSString stringWithFormat:@"%d", timePassed/60];
-	NSString* timeString = [NSString stringWithFormat:@"%d", time/60];
+	NSString* timePassedString = [NSString stringWithFormat:@"%ld", timePassed/60];
+	NSString* timeString = [NSString stringWithFormat:@"%ld", time/60];
 	
 	if (timePassed%(60 * _scriptEveryTimeMinutes) == 0 && time!=0) {		
 		if ([self checkDefault:@"scriptAtEveryEnabled"]) {		
