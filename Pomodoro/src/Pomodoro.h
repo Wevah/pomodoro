@@ -64,9 +64,9 @@ enum PomoState {
 	NSInteger resumed;
 
 	NSInteger time;
-	NSTimer *__weak oneSecTimer;
-	NSTimer *__weak breakTimer;
-	NSTimer *__weak interruptionTimer;
+	NSTimer *oneSecTimer;
+	NSTimer *breakTimer;
+	NSTimer *interruptionTimer;
 	
 	enum PomoState state;
 
@@ -80,9 +80,9 @@ enum PomoState {
 @property (nonatomic, assign) NSInteger internallyInterrupted;
 @property (nonatomic, assign, readonly) enum PomoState state;
 
-@property (nonatomic, weak) NSTimer* oneSecTimer;
-@property (nonatomic, weak) NSTimer* breakTimer;
-@property (nonatomic, weak) NSTimer* interruptionTimer;
+@property (nonatomic) NSTimer* oneSecTimer;
+@property (nonatomic) NSTimer* breakTimer;
+@property (nonatomic) NSTimer* interruptionTimer;
 @property (nonatomic, strong) id delegate;
 
 - (id) initWithDuration:(NSInteger) durationTime;

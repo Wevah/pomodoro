@@ -59,7 +59,7 @@
     time = seconds; 
 	state = PomoTicking;
 
-	oneSecTimer = [NSTimer timerWithTimeInterval:1
+	oneSecTimer = [NSTimer timerWithTimeInterval:1.0
 											   target:self
 											 selector:@selector(oncePersecond:)													 
 											 userInfo:nil
