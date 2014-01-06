@@ -61,7 +61,7 @@
 	IBOutlet GrowlNotifier* __weak growl;
 	IBOutlet Pomodoro* __weak pomodoro;
     NSInteger longBreakCounter;
-    NSTimer* __weak longBreakCheckerTimer;
+    NSTimer* longBreakCheckerTimer;
     PomodoroNotifier* pomodoroNotifier;
     
     ProcessSerialNumber psn;
