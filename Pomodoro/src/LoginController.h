@@ -29,9 +29,9 @@
 @class Scripter;
 
 @interface LoginController : CommonController {
-  	IBOutlet Scripter* scripter;  
+  	IBOutlet Scripter* __weak scripter;  
 }
 
-@property (assign) IBOutlet Scripter* scripter;
+@property (weak) IBOutlet Scripter* scripter;
 
 @end

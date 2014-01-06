@@ -72,7 +72,7 @@
         return managedObjectModel;
     }
 	
-    managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];    
+    managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];    
     return managedObjectModel;
 }
 
@@ -280,7 +280,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		}
 		
 	}
-	[cal release];
 	
 }
 
@@ -313,18 +312,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 							  initWithKey:@"when" ascending:NO];
 	[pomos setSortDescriptors:
 	 [NSArray arrayWithObject: sort]];
-	[sort release];	
 
 		
 }
 
-- (void)dealloc {
-    
-    [pomos release];
-    [managedObjectModel release];
-    [managedObjectContext release];
-    [super dealloc];
-    
-}
 
 @end

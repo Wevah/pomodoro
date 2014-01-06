@@ -38,8 +38,8 @@
 
 - (void)awakeFromNib {	
 	NSURL *splashURL = [[NSBundle mainBundle] URLForResource:@"splash" withExtension:@"html"];
-	NSString *aboutString = [[[NSString alloc] initWithContentsOfURL:splashURL usedEncoding:NULL error:nil] autorelease];
-	NSAttributedString* aboutHtml = [[[NSAttributedString alloc] initWithHTML:[aboutString dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil] autorelease];
+	NSString *aboutString = [[NSString alloc] initWithContentsOfURL:splashURL usedEncoding:NULL error:nil];
+	NSAttributedString* aboutHtml = [[NSAttributedString alloc] initWithHTML:[aboutString dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil];
 	[aboutText setLinkTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 									  [NSColor whiteColor], NSForegroundColorAttributeName,nil]];
 	[aboutText insertText:aboutHtml];
@@ -47,11 +47,5 @@
 	
 }
 
-- (void)dealloc {
-    
-    [aboutText release];
-    [super dealloc];
-    
-}
 
 @end

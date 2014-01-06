@@ -29,9 +29,9 @@
 
 @interface TwitterController : CommonController<MGTwitterEngineDelegate> {
 
-    IBOutlet NSProgressIndicator* twitterProgress;
-	IBOutlet NSImageView* twitterStatus;
-    IBOutlet NSPanel* prefs;
+    IBOutlet NSProgressIndicator* __weak twitterProgress;
+	IBOutlet NSImageView* __weak twitterStatus;
+    IBOutlet NSPanel* __weak prefs;
 
     MGTwitterEngine* twitterEngine;
 	NSImage* redButtonImage;
@@ -39,9 +39,9 @@
 	NSImage* yellowButtonImage;
 }
 
-@property (assign) IBOutlet NSProgressIndicator* twitterProgress;
-@property (assign) IBOutlet NSImageView* twitterStatus;
-@property (assign) IBOutlet NSPanel* prefs;
+@property (weak) IBOutlet NSProgressIndicator* twitterProgress;
+@property (weak) IBOutlet NSImageView* twitterStatus;
+@property (weak) IBOutlet NSPanel* prefs;
 
 - (void) tryConnectionToTwitter;
 

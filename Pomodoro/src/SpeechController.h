@@ -28,16 +28,16 @@
 
 @interface SpeechController : CommonController {
  
-    IBOutlet NSSpeechSynthesizer* speech;
-	IBOutlet NSComboBox* voicesCombo;
-    IBOutlet NSComboBox* speechEveryCombo;
+    IBOutlet NSSpeechSynthesizer* __weak speech;
+	IBOutlet NSComboBox* __weak voicesCombo;
+    IBOutlet NSComboBox* __weak speechEveryCombo;
 
 	NSArray* voices;
     
 }
 
-@property (assign) IBOutlet NSSpeechSynthesizer* speech;
-@property (assign) IBOutlet NSComboBox* voicesCombo;
-@property (assign) IBOutlet NSComboBox* speechEveryCombo;
+@property (weak) IBOutlet NSSpeechSynthesizer* speech;
+@property (weak) IBOutlet NSComboBox* voicesCombo;
+@property (weak) IBOutlet NSComboBox* speechEveryCombo;
 
 @end

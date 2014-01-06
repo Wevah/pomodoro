@@ -28,15 +28,15 @@
 @interface AboutController : NSWindowController {
 	
     BOOL showRelease;
-	IBOutlet NSTextView* aboutText;
-    IBOutlet NSTextField* release;
-    IBOutlet NSTextField* copyright;
+	IBOutlet NSTextView* __unsafe_unretained aboutText;
+    IBOutlet NSTextField* __weak release;
+    IBOutlet NSTextField* __weak copyright;
 
 }
 
-@property (assign) IBOutlet NSTextView* aboutText;
-@property (assign, readonly) IBOutlet NSTextField* release;
-@property (assign, readonly) NSTextField* copyright;
+@property (unsafe_unretained) IBOutlet NSTextView* aboutText;
+@property (weak, readonly) IBOutlet NSTextField* release;
+@property (weak, readonly) NSTextField* copyright;
 
 -(IBAction) switchBetweenReleaseAndBuild: (id) sender;
 

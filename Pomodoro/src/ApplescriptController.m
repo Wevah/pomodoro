@@ -49,7 +49,6 @@
 			NSURL *url = [panel URL];
 			NSString *script = [[NSString alloc] initWithContentsOfURL:url usedEncoding:NULL error:nil];
 			[scriptView setSource:script];
-			[script release];
 		}
 
 	}];
@@ -81,7 +80,7 @@
 -(void) pomodoroStarted:(NSNotification*) notification {
     
 	if ([self checkDefault:@"scriptAtStartEnabled"]) {	
-		NSAppleScript *playScript = [[[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptStart"]] autorelease];
+		NSAppleScript *playScript = [[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptStart"]];
 		[playScript executeAndReturnError:nil];
 	}
 }
@@ -92,7 +91,7 @@
 	
 	if ([self checkDefault:@"scriptAtInterruptEnabled"]) {		
 		NSString* scriptString = [[self bindCommonVariables:@"scriptInterrupt"] stringByReplacingOccurrencesOfString:@"$secs" withString:interruptTimeString];
-		NSAppleScript *playScript = [[[NSAppleScript alloc] initWithSource:scriptString] autorelease];
+		NSAppleScript *playScript = [[NSAppleScript alloc] initWithSource:scriptString];
 		[playScript executeAndReturnError:nil];
 	}
 
@@ -113,7 +112,7 @@
 -(void) pomodoroInterruptionMaxTimeIsOver:(NSNotification*) notification {
 
     if ([self checkDefault:@"scriptAtInterruptOverEnabled"]) {		
-		NSAppleScript *playScript = [[[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptInterruptOver"]] autorelease];
+		NSAppleScript *playScript = [[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptInterruptOver"]];
 		[playScript executeAndReturnError:nil];
 	}
 
@@ -122,7 +121,7 @@
 -(void) pomodoroReset:(NSNotification*) notification {
     
     if ([self checkDefault:@"scriptAtResetEnabled"]) {		
-		NSAppleScript *playScript = [[[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptReset"]] autorelease];
+		NSAppleScript *playScript = [[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptReset"]];
 		[playScript executeAndReturnError:nil];
 	}
     
@@ -131,7 +130,7 @@
 -(void) pomodoroResumed:(NSNotification*) notification {
     
 	if ([self checkDefault:@"scriptAtResumeEnabled"]) {		
-		NSAppleScript *playScript = [[[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptResume"]] autorelease];
+		NSAppleScript *playScript = [[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptResume"]];
 		[playScript executeAndReturnError:nil];
 	}
 }
@@ -142,7 +141,7 @@
 -(void) breakFinished:(NSNotification*) notification {
     
 	if ([self checkDefault:@"scriptAtBreakFinishedEnabled"]) {		
-		NSAppleScript *playScript = [[[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptBreakFinished"]] autorelease];
+		NSAppleScript *playScript = [[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptBreakFinished"]];
 		[playScript executeAndReturnError:nil];
 	}
 }
@@ -150,7 +149,7 @@
 -(void) pomodoroFinished:(NSNotification*) notification {    
     
     if ([self checkDefault:@"scriptAtEndEnabled"]) {		
-		NSAppleScript *playScript = [[[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptEnd"]] autorelease];
+		NSAppleScript *playScript = [[NSAppleScript alloc] initWithSource:[self bindCommonVariables:@"scriptEnd"]];
 		[playScript executeAndReturnError:nil];
 	}
     
@@ -171,7 +170,7 @@
 			NSString* msg = [[self bindCommonVariables:@"scriptEvery"] stringByReplacingOccurrencesOfString:@"$mins" withString:[[[NSUserDefaults standardUserDefaults] objectForKey:@"scriptEveryTimeMinutes"] stringValue]];
 			msg = [msg stringByReplacingOccurrencesOfString:@"$passed" withString:timePassedString];
 			msg = [msg stringByReplacingOccurrencesOfString:@"$time" withString:timeString];
-			NSAppleScript *playScript = [[[NSAppleScript alloc] initWithSource:msg] autorelease];
+			NSAppleScript *playScript = [[NSAppleScript alloc] initWithSource:msg];
 			[playScript executeAndReturnError:nil];
 		}
 	}
@@ -185,7 +184,7 @@
     
     [self registerForAllPomodoroEvents];
     
-    scriptNames = [[NSArray arrayWithObjects:@"Start",@"Interrupt",@"InterruptOver", @"Reset", @"Resume", @"End", @"BreakFinished", @"Every", nil] retain];
+    scriptNames = [NSArray arrayWithObjects:@"Start",@"Interrupt",@"InterruptOver", @"Reset", @"Resume", @"End", @"BreakFinished", @"Every", nil];
     
     [scriptEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:2]];
     [scriptEveryCombo addItemWithObjectValue: [NSNumber numberWithInt:5]];
@@ -193,11 +192,5 @@
     
 }
 
-- (void)dealloc {
-    
-    [scriptNames release];
-    [super dealloc];
-    
-}
 
 @end

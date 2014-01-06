@@ -41,7 +41,7 @@
 
 - (id) init { 
     if ( (self = [super init]) ) {
-        [self initWithDuration:25];
+        if (!(self = [self initWithDuration:25])) return nil;
     }
     return self;
 }
@@ -206,11 +206,6 @@
 	}
 }
 
--(void)dealloc {
-    
-    [delegate release];
-	[super dealloc];
-}
 
 @end
 

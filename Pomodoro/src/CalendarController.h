@@ -31,11 +31,11 @@
 
 @interface CalendarController : CommonController {
 
-    IBOutlet NSComboBox* calendarsCombo;
+    IBOutlet NSComboBox* __weak calendarsCombo;
     
 }
 
-@property (assign) IBOutlet NSComboBox* calendarsCombo;
+@property (weak) IBOutlet NSComboBox* calendarsCombo;
 
 - (IBAction)initCalendars:(id)sender;
 

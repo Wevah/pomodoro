@@ -31,15 +31,15 @@
 
 @interface ShortcutController : CommonController {
 
-    IBOutlet id delegate;
+    IBOutlet id __unsafe_unretained delegate;
     
-    IBOutlet SRRecorderControl* muteRecorder;
-    IBOutlet SRRecorderControl* startRecorder;
-    IBOutlet SRRecorderControl* resetRecorder;
-    IBOutlet SRRecorderControl* interruptRecorder;
-    IBOutlet SRRecorderControl* internalInterruptRecorder;
-    IBOutlet SRRecorderControl* resumeRecorder;
-    IBOutlet SRRecorderControl* quickStatsRecorder;
+    IBOutlet SRRecorderControl* __weak muteRecorder;
+    IBOutlet SRRecorderControl* __weak startRecorder;
+    IBOutlet SRRecorderControl* __weak resetRecorder;
+    IBOutlet SRRecorderControl* __weak interruptRecorder;
+    IBOutlet SRRecorderControl* __weak internalInterruptRecorder;
+    IBOutlet SRRecorderControl* __weak resumeRecorder;
+    IBOutlet SRRecorderControl* __weak quickStatsRecorder;
 	
 	PTHotKey *muteKey;
 	PTHotKey *startKey;
@@ -58,15 +58,15 @@
 	KeyCombo quickStatsKeyCombo;
 }
 
-@property (assign) IBOutlet id delegate;
+@property (unsafe_unretained) IBOutlet id delegate;
 
-@property (assign) IBOutlet SRRecorderControl* muteRecorder;
-@property (assign) IBOutlet SRRecorderControl* startRecorder;
-@property (assign) IBOutlet SRRecorderControl* resetRecorder;
-@property (assign) IBOutlet SRRecorderControl* interruptRecorder;
-@property (assign) IBOutlet SRRecorderControl* internalInterruptRecorder;
-@property (assign) IBOutlet SRRecorderControl* resumeRecorder;
-@property (assign) IBOutlet SRRecorderControl* quickStatsRecorder;
+@property (weak) IBOutlet SRRecorderControl* muteRecorder;
+@property (weak) IBOutlet SRRecorderControl* startRecorder;
+@property (weak) IBOutlet SRRecorderControl* resetRecorder;
+@property (weak) IBOutlet SRRecorderControl* interruptRecorder;
+@property (weak) IBOutlet SRRecorderControl* internalInterruptRecorder;
+@property (weak) IBOutlet SRRecorderControl* resumeRecorder;
+@property (weak) IBOutlet SRRecorderControl* quickStatsRecorder;
 
 - (void) updateShortcuts;
 

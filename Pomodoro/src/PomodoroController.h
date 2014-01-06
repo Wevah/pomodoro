@@ -37,31 +37,31 @@
 
 @interface PomodoroController : CommonController {
         	
-	IBOutlet NSPanel* prefs;
-	IBOutlet NSPanel* namePanel; 
-    IBOutlet NSPanel* scriptPanel;
+	IBOutlet NSPanel* __weak prefs;
+	IBOutlet NSPanel* __weak namePanel; 
+    IBOutlet NSPanel* __weak scriptPanel;
     
-    IBOutlet NSTabView* tabView;
-    IBOutlet NSToolbar* toolBar;
-	IBOutlet NSMenu* pomodoroMenu;
-	IBOutlet NSComboBox* initialTimeCombo;
+    IBOutlet NSTabView* __weak tabView;
+    IBOutlet NSToolbar* __weak toolBar;
+	IBOutlet NSMenu* __weak pomodoroMenu;
+	IBOutlet NSComboBox* __weak initialTimeCombo;
 	IBOutlet NSComboBox* initialTimeComboInStart;
-	IBOutlet NSComboBox* interruptCombo;
-	IBOutlet NSComboBox* breakCombo;
-	IBOutlet NSComboBox* longBreakCombo;
-	IBOutlet NSComboBox* longBreakResetComboTime;
-	IBOutlet NSComboBox* pomodorosForLong;
+	IBOutlet NSComboBox* __weak interruptCombo;
+	IBOutlet NSComboBox* __weak breakCombo;
+	IBOutlet NSComboBox* __weak longBreakCombo;
+	IBOutlet NSComboBox* __weak longBreakResetComboTime;
+	IBOutlet NSComboBox* __weak pomodorosForLong;
 			
-	IBOutlet NSMenuItem* startPomodoro;
-	IBOutlet NSMenuItem* finishPomodoro;
-	IBOutlet NSMenuItem* interruptPomodoro;
-	IBOutlet NSMenuItem* internalInterruptPomodoro;
-	IBOutlet NSMenuItem* invalidatePomodoro;
-	IBOutlet NSMenuItem* resumePomodoro;
-	IBOutlet GrowlNotifier* growl;
-	IBOutlet Pomodoro* pomodoro;
+	IBOutlet NSMenuItem* __weak startPomodoro;
+	IBOutlet NSMenuItem* __weak finishPomodoro;
+	IBOutlet NSMenuItem* __weak interruptPomodoro;
+	IBOutlet NSMenuItem* __weak internalInterruptPomodoro;
+	IBOutlet NSMenuItem* __weak invalidatePomodoro;
+	IBOutlet NSMenuItem* __weak resumePomodoro;
+	IBOutlet GrowlNotifier* __weak growl;
+	IBOutlet Pomodoro* __weak pomodoro;
     NSInteger longBreakCounter;
-    NSTimer* longBreakCheckerTimer;
+    NSTimer* __weak longBreakCheckerTimer;
     PomodoroNotifier* pomodoroNotifier;
     
     ProcessSerialNumber psn;
@@ -83,32 +83,32 @@
 			
 }
 
-@property (assign) IBOutlet NSPanel* prefs;
-@property (assign) IBOutlet NSPanel* namePanel; 
-@property (assign) IBOutlet NSPanel* scriptPanel;
+@property (weak) IBOutlet NSPanel* prefs;
+@property (weak) IBOutlet NSPanel* namePanel; 
+@property (weak) IBOutlet NSPanel* scriptPanel;
 
-@property (assign) IBOutlet NSTabView* tabView;
-@property (assign) IBOutlet NSToolbar* toolBar;
-@property (assign) IBOutlet NSMenu* pomodoroMenu;
-@property (assign) IBOutlet NSComboBox* initialTimeCombo;
-@property (assign) IBOutlet NSComboBox* interruptCombo;
-@property (assign) IBOutlet NSComboBox* breakCombo;
-@property (assign) IBOutlet NSComboBox* longBreakCombo;
-@property (assign) IBOutlet NSComboBox* longBreakResetComboTime;
-@property (assign) IBOutlet NSComboBox* pomodorosForLong;
+@property (weak) IBOutlet NSTabView* tabView;
+@property (weak) IBOutlet NSToolbar* toolBar;
+@property (weak) IBOutlet NSMenu* pomodoroMenu;
+@property (weak) IBOutlet NSComboBox* initialTimeCombo;
+@property (weak) IBOutlet NSComboBox* interruptCombo;
+@property (weak) IBOutlet NSComboBox* breakCombo;
+@property (weak) IBOutlet NSComboBox* longBreakCombo;
+@property (weak) IBOutlet NSComboBox* longBreakResetComboTime;
+@property (weak) IBOutlet NSComboBox* pomodorosForLong;
 
-@property (assign) IBOutlet GrowlNotifier* growl;
-@property (assign) IBOutlet Pomodoro* pomodoro;
+@property (weak) IBOutlet GrowlNotifier* growl;
+@property (weak) IBOutlet Pomodoro* pomodoro;
 @property (nonatomic, assign) NSInteger longBreakCounter;
-@property (nonatomic, assign) NSTimer* longBreakCheckerTimer;
+@property (nonatomic, weak) NSTimer* longBreakCheckerTimer;
 
 
-@property (nonatomic, assign, readonly) IBOutlet NSMenuItem* startPomodoro;
-@property (nonatomic, assign, readonly) IBOutlet NSMenuItem* finishPomodoro;
-@property (nonatomic, assign, readonly) IBOutlet NSMenuItem* interruptPomodoro;
-@property (nonatomic, assign, readonly) IBOutlet NSMenuItem* internalInterruptPomodoro;
-@property (nonatomic, assign, readonly) IBOutlet NSMenuItem* invalidatePomodoro;
-@property (nonatomic, assign, readonly) IBOutlet NSMenuItem* resumePomodoro;
+@property (nonatomic, weak, readonly) IBOutlet NSMenuItem* startPomodoro;
+@property (nonatomic, weak, readonly) IBOutlet NSMenuItem* finishPomodoro;
+@property (nonatomic, weak, readonly) IBOutlet NSMenuItem* interruptPomodoro;
+@property (nonatomic, weak, readonly) IBOutlet NSMenuItem* internalInterruptPomodoro;
+@property (nonatomic, weak, readonly) IBOutlet NSMenuItem* invalidatePomodoro;
+@property (nonatomic, weak, readonly) IBOutlet NSMenuItem* resumePomodoro;
 
 -(void) keyMute;
 -(void) keyStart;
