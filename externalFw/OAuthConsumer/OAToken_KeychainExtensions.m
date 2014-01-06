@@ -44,25 +44,17 @@
     status = SecKeychainItemCopyContent(item, NULL, &list, &length, (void **)&password);
     
     if (status == noErr) {
-        self.key = [NSString stringWithCString:list.attr[0].data
-                                        length:list.attr[0].length];
+        self.key = [[[NSString alloc] initWithBytes:list.attr[0].data length:list.attr[0].length encoding:NSUTF8StringEncoding] autorelease];
+
         if (password != NULL) {
-            char passwordBuffer[1024];
-            
-            if (length > 1023) {
-                length = 1023;
-            }
-            strncpy(passwordBuffer, password, length);
-            
-            passwordBuffer[length] = '\0';
-			self.secret = [NSString stringWithCString:passwordBuffer];
+			self.secret = [[[NSString alloc] initWithBytes:password length:length encoding:NSUTF8StringEncoding] autorelease];
         }
         
         SecKeychainItemFreeContent(&list, password);
         
     } else {
 		// TODO find out why this always works in i386 and always fails on ppc
-		NSLog(@"Error from SecKeychainItemCopyContent: %d", status);
+		NSLog(@"Error from SecKeychainItemCopyContent: %d", (int)status);
         return nil;
     }
     
