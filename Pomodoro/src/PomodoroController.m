@@ -219,6 +219,7 @@
 -(IBAction)setup:(id)sender {
 	
 	[prefs makeKeyAndOrderFront:self];
+	[NSApp activateIgnoringOtherApps:YES];
 }
 
 -(IBAction)stats:(id)sender {
