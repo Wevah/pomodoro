@@ -30,7 +30,7 @@
 
 @synthesize time, resumed, durationMinutes, realDuration, externallyInterrupted, internallyInterrupted, oneSecTimer, breakTimer, interruptionTimer, delegate, state;
 
-- (void) clearTimer: (NSTimer**) timer {
+- (void) clearTimer: (NSTimer * __strong *) timer {
     
     if ([*timer isValid]) {
         [*timer invalidate];
