@@ -28,7 +28,7 @@
 
 @implementation AboutController
 
-@synthesize aboutText, release, copyright;
+@synthesize aboutText, releaseField, copyright;
 
 - (id) init {
 		

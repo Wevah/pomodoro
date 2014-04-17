@@ -35,8 +35,8 @@
 }
 
 @property (unsafe_unretained) IBOutlet NSTextView* aboutText;
-@property (weak, readonly) IBOutlet NSTextField* release;
-@property (weak, readonly) NSTextField* copyright;
+@property (weak) IBOutlet NSTextField* releaseField;
+@property (weak) NSTextField* copyright;
 
 -(IBAction) switchBetweenReleaseAndBuild: (id) sender;
 
