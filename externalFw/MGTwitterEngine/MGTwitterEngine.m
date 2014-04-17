@@ -804,7 +804,7 @@
 			break;
 		case MGTwitterOAuthToken: {;
 			OAToken *token = [[OAToken alloc] initWithHTTPResponseBody:[[NSString alloc] initWithData:xmlData encoding:NSUTF8StringEncoding]];
-			[self parsingSucceededForRequest:identifier ofResponseType:requestType
+			[self parsingSucceededForRequest:identifier ofResponseType:responseType
 						   withParsedObjects:@[token]];
         }
         default:
