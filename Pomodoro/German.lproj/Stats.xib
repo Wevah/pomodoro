@@ -30,7 +30,7 @@
                             <tabViewItem label="Statistik" identifier="1" id="30" userLabel="Tab View Item - Tab">
                                 <view key="view" id="33">
                                     <rect key="frame" x="10" y="33" width="768" height="395"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <imageView id="36">
                                             <rect key="frame" x="17" y="297" width="72" height="115"/>
@@ -141,7 +141,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="89">
-                                            <rect key="frame" x="284" y="273" width="125" height="17"/>
+                                            <rect key="frame" x="277" y="273" width="142" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="01.01.1970 01:00" id="90">
                                                 <dateFormatter key="formatter" dateStyle="medium" timeStyle="short" id="146" userLabel="Date Formatter"/>
@@ -154,7 +154,7 @@
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="93">
-                                            <rect key="frame" x="451" y="273" width="125" height="17"/>
+                                            <rect key="frame" x="441" y="273" width="135" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Dec 31, 1969, 18:00" id="94">
                                                 <dateFormatter key="formatter" dateStyle="medium" timeStyle="short" id="187" userLabel="Date Formatter"/>

@@ -10,6 +10,7 @@
                 <outlet property="aboutText" destination="22" id="28"/>
                 <outlet property="copyright" destination="29" id="33"/>
                 <outlet property="release" destination="30" id="34"/>
+                <outlet property="releaseField" destination="30" id="KZB-Zb-Ypy"/>
                 <outlet property="window" destination="1" id="27"/>
             </connections>
         </customObject>
@@ -74,7 +75,7 @@
                     <button id="35">
                         <rect key="frame" x="18" y="290" width="112" height="120"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="icon" imagePosition="overlaps" alignment="center" alternateImage="icon" imageScaling="proportionallyDown" inset="2" id="36">
+                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="icon" imagePosition="overlaps" alignment="center" alternateImage="icon" imageScaling="proportionallyDown" inset="2" id="36">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>

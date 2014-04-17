@@ -74,8 +74,8 @@
                     <button id="51">
                         <rect key="frame" x="18" y="290" width="112" height="120"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="icon" imagePosition="overlaps" alignment="center" alternateImage="icon" imageScaling="proportionallyDown" inset="2" id="52">
-                            <behavior key="behavior" lightByContents="YES"/>
+                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="icon" imagePosition="overlaps" alignment="center" alternateImage="icon" imageScaling="proportionallyDown" inset="2" id="52">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
